@@ -7,15 +7,9 @@ template from  [https://github.com/CodingTrain/Rainbow-Code](https://github.com/
 
 
 # Current game 
-[alt text](https://raw.githubusercontent.com/huesimon/drawing_game_socketio/master/screenshots/game%20board%20screenshot.png "Logo Title Text 1")
+![CurrentGame](https://raw.githubusercontent.com/huesimon/drawing_game_socketio/master/screenshots/game%20board%20screenshot.png "Screenshot of game")
 
-Inline-style: 
-![alt text](https://github.com/huesimon/drawing_game_socketio/blob/master/screenshots/game%20board%20screenshot.PNG "Logo Title Text 1")
 
-Reference-style: 
-![alt text][logo]
-
-[logo]: https://github.com/huesimon/drawing_game_socketio/blob/master/screenshots/game%20board%20screenshot.PNG "Logo Title Text 2"
 
 - Multiple users
 - User can pick color (red, green, or blue)
