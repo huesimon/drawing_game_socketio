@@ -7,7 +7,7 @@ template from  [https://github.com/CodingTrain/Rainbow-Code](https://github.com/
 
 
 # Current game 
-![CurrentGame](https://raw.githubusercontent.com/huesimon/drawing_game_socketio/master/screenshots/game%20board%20screenshot.png "Screenshot of game")
+![CurrentGame](https://raw.githubusercontent.com/huesimon/drawing_game_socketio/master/screenshots/game%20board%20screenshot.PNG "Screenshot of game")
 
 
 
