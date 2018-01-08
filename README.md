@@ -18,7 +18,8 @@ template from  [https://github.com/CodingTrain/Rainbow-Code](https://github.com/
 
 # TODO:
 
-- Get user inputs (text), who can guess the drawing first. 
-- Hint text that starts  as ("_ _ _ _ _ "), but will randomly add letters from the CORRECT word as time goes by.
-- Make someone the "drawer?" so only one user can actually draw on the canvas at the time.
-- more paint tools (fx fill)
+- [ ] Get user inputs (text), who can guess the drawing first. 
+- [ ] Hint text that starts  as ("_ _ _ _ _ "), but will randomly add letters from the CORRECT word as time goes by.
+- [x] Make someone the "drawer?" so only one user can actually draw on the canvas at the time.
+- [ ] more paint tools (fx fill)
+
