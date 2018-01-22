@@ -1,8 +1,7 @@
 var socket;
 var r, g, b;
-var input, red, green, blue;
+var nameInput, red, green, blue;
 
-var hintText = "This is the hint";
 var answerText;
 var playerAllowedToDraw = "N/A";
 
@@ -24,6 +23,10 @@ function setup() {
     red.mousePressed(setRed);
     green.mousePressed(setGreen);
     blue.mousePressed(setBlue);
+
+    //input field
+    nameInput = createInput();
+    // nameInput.position(10,480);
 
     socket = io.connect('http://localhost:3000/');
     socket.on('mouse', newDrawing);
@@ -50,22 +53,23 @@ function setBlue() {
 
 function newDrawing(data) {
     playerAllowedToDraw = data.id;
-
-
+    //player drawing (display their name)
     noStroke();
     fill(data.red, data.green, data.blue);
     ellipse(data.x, data.y, 30, 30);
-    console.log('Sending: ' + mouseX + ', ' + mouseY);
+    // console.log('Sending: ' + mouseX + ', ' + mouseY);
+    playerAllowedToDraw = data.name;
 }
 
 function mouseDragged() {
-console.log("your id: " + socket.id + " id that is allowed to draw: " + playerAllowedToDraw);
 
+// console.log("your id: " + socket.id + " id that is allowed to draw: " + playerAllowedToDraw);
+// console.log(nameInput.value());
     if(canIDraw(playerAllowedToDraw)){
         noStroke();
         fill(r, g, b);
         ellipse(mouseX, mouseY, 30, 30);
-        console.log('Sending: ' + mouseX + ', ' + mouseY + "," + socket.id);
+        // console.log('Sending: ' + mouseX + ', ' + mouseY + "," + socket.id + "," + socket.name);
 
         var data = {
             x: mouseX,
@@ -73,7 +77,8 @@ console.log("your id: " + socket.id + " id that is allowed to draw: " + playerAl
             red: r,
             green: g,
             blue: b,
-            id: socket.id
+            id: socket.id,
+            name: nameInput.value()
         };
         socket.emit('mouse', data);
     }
@@ -82,7 +87,7 @@ console.log("your id: " + socket.id + " id that is allowed to draw: " + playerAl
     // noStroke();
     // fill(r, g, b);
     // ellipse(mouseX, mouseY, 30, 30);
-    console.log('Sending: ' + mouseX + ', ' + mouseY + "," + socket.id);
+    // console.log('Sending: ' + mouseX + ', ' + mouseY + "," + socket.id  + "\n" + socket.name);
 
     var data = {
         x: mouseX,
@@ -90,7 +95,8 @@ console.log("your id: " + socket.id + " id that is allowed to draw: " + playerAl
         red: r,
         green: g,
         blue: b,
-        id: socket.id
+        id: socket.id,
+        name: nameInput.value()
     };
     socket.emit('mouse', data);
 }
@@ -98,7 +104,7 @@ console.log("your id: " + socket.id + " id that is allowed to draw: " + playerAl
 function draw() {
     textSize(32);
     fill(0, 0, 0);
-    text(hintText, width / 2, 35);
+    text(playerAllowedToDraw, width / 2, 35);
 }
 
 function canIDraw(id) {
@@ -110,6 +116,7 @@ function canIDraw(id) {
 
     //if i'm the first person in the array
     if (socket.id === id) {
+
         return true;
 
     } else return false;

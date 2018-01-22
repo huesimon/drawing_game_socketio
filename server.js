@@ -68,6 +68,9 @@ function newConnection(socket) {
 
     }
 
+    // waiting room? wait until 4 players have joined, then allow one player to draw.
+
+
 
 }
 
