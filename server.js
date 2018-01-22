@@ -27,6 +27,9 @@ function newConnection(socket) {
     //if there  is a message called mouse, trigger function "mouseMsg"
     socket.on('mouse', mouseMsg);
 
+    //if someone "clears"
+    socket.on('clear', clearTheCanvas);
+
     function mouseMsg(data) {
 
         if (whoIsAllowedToDraw(data)){
@@ -36,6 +39,15 @@ function newConnection(socket) {
             //will send to everyone + you
             console.log(data);
             console.log(playerList.length);
+        }
+
+    }
+
+    function clearTheCanvas(data) {
+        if (whoIsAllowedToDraw(data)){
+            io.sockets.emit('clear', data);
+            console.log('someone cleared');
+
         }
 
     }
@@ -68,7 +80,6 @@ function newConnection(socket) {
 
     }
 
-    // waiting room? wait until 4 players have joined, then allow one player to draw.
 
 
 

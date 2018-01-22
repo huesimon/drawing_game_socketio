@@ -1,15 +1,17 @@
 var socket;
 var r, g, b;
-var nameInput, red, green, blue;
+var nameInput, red, green, blue, clearButton;
 
 var answerText;
 var playerAllowedToDraw = "N/A";
 
 function setup() {
+    var height = 500;
+    var width = 500;
     r = 255;
     g = 255;
     b = 255;
-    createCanvas(500, 500);
+    createCanvas(height, width);
     background(51);
 
 
@@ -19,10 +21,13 @@ function setup() {
     green.position(red.x + red.width, 480);
     blue = createButton('blue');
     blue.position(green.x + green.width, 480);
+    clearButton = createButton('clear');
+    clearButton.position(blue.x + blue.width, 480);
 
     red.mousePressed(setRed);
     green.mousePressed(setGreen);
     blue.mousePressed(setBlue);
+    clearButton.mousePressed(newClearCanvas);
 
     //input field
     nameInput = createInput();
@@ -30,6 +35,7 @@ function setup() {
 
     socket = io.connect('http://localhost:3000/');
     socket.on('mouse', newDrawing);
+    socket.on('clear', serverClearCanvas);
 }
 
 
@@ -58,14 +64,14 @@ function newDrawing(data) {
     fill(data.red, data.green, data.blue);
     ellipse(data.x, data.y, 30, 30);
     // console.log('Sending: ' + mouseX + ', ' + mouseY);
-    playerAllowedToDraw = data.name;
+
 }
 
 function mouseDragged() {
 
 // console.log("your id: " + socket.id + " id that is allowed to draw: " + playerAllowedToDraw);
 // console.log(nameInput.value());
-    if(canIDraw(playerAllowedToDraw)){
+    if (canIDraw(playerAllowedToDraw)) {
         noStroke();
         fill(r, g, b);
         ellipse(mouseX, mouseY, 30, 30);
@@ -105,6 +111,28 @@ function draw() {
     textSize(32);
     fill(0, 0, 0);
     text(playerAllowedToDraw, width / 2, 35);
+}
+
+function serverClearCanvas(data) {
+    fill(51);
+    rect(0, 0, data.w, data.h);
+
+
+}
+
+function newClearCanvas() {
+    if (canIDraw(playerAllowedToDraw)) {
+        fill(51);
+        rect(0, 0, width, height);
+        var data = {
+            w: width,
+            h: height,
+            id: socket.id,
+            name: nameInput.value()
+        };
+        socket.emit('clear', data);
+    }
+
 }
 
 function canIDraw(id) {
